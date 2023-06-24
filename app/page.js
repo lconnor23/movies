@@ -1,95 +1,109 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+'use client'
+import { useState, useEffect } from "react"
+import Select from "react-select"
+import { BsChevronUp } from 'react-icons/bs'
+
+/* Select dropdown options of movie genres */
+const options = [
+  { value: 'animation', label: 'Animation' },
+  { value: 'classic', label: 'Classic' },
+  { value: 'comedy', label: 'Comedy' },
+  { value: 'drama', label: 'Drama' },
+  { value: 'horror', label: 'Horror' },
+  { value: 'family', label: 'Family' },
+  { value: 'mystery', label: 'Mystery' },
+  { value: 'western', label: 'Western'}
+]
+
+/* Fetch request from API with variable endpoint */
+async function getMovies(genre){
+  const res = await fetch(`https://api.sampleapis.com/movies/${genre}`)
+  return res.json()
+}
 
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+  /* State variables for fetching selected genre, handling data, and scroll button */
+  const [selectedOption, setSelectedOption] = useState()
+  const [movies, setMovies] = useState([])
+  const [scrollButton, setScrollButton] = useState(false)
+ 
+  /* Creates fetch request only when selected option changes*/
+  useEffect(() => {
+    const fetchMovies = async () => {
+      if (selectedOption) {
+        const moviesData = await getMovies(selectedOption.value)
+        /* can add slice here to limit results, setMovies(moviesData.slice(0, 30)) */
+        setMovies(moviesData)
+      }
+    }
+    fetchMovies()
+  }, [selectedOption])
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+/* Handles broken images, on error adds property imageError:true to movie object */
+  const handleImageError = (index) => {
+    const updatedMovies = [...movies]
+    updatedMovies[index].imageError = true
+    setMovies(updatedMovies)
+  }
+
+/* Adds event listener to call handleButton on scroll */
+  useEffect(() => {
+    window.addEventListener('scroll', handleButton)
+    return () => {
+      window.removeEventListener('scroll', handleButton)
+    }
+  }, [])
+
+/* Scroll to top button only displays once you scrolled down > 300px */
+const handleButton = () => {
+  if(window.scrollY > 300) {
+    setScrollButton(true)
+  }else{
+    setScrollButton(false)
+  }
+}
+
+/* Scroll to top function */  
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  })
+}
+
+    return (
+      <body>        
+        <h1>Movies</h1>
+        <p>Choose a genre:</p>
+
+        <Select
+          className="dropdown-menu"
+          defaultValue={selectedOption}
+          onChange={setSelectedOption}
+          options={options}
+          maxMenuHeight={300}
         />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    
+        <div className='movies-container'>
+          {/* only renders for working images */}
+            {movies.map((movie, index) => (!movie.imageError &&
+              <section 
+                className='movie-card'
+                key={movie.id}>
+                <h3 className='movie-title'>{movie.title}</h3>
+                <img 
+                    className="movie-img"
+                    src={movie.posterURL} 
+                    alt={`${movie.title} poster`}
+                    onError={() => handleImageError(index)} />
+              </section>
+            ))}
+          
+          { scrollButton && <BsChevronUp
+            className='back-to-top'
+            onClick={scrollToTop}
+            />}
+        </div>
+    </body>
   )
 }
