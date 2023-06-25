@@ -73,7 +73,7 @@ const scrollToTop = () => {
 
     return (
       <body>        
-        <h1>Movies</h1>
+        <h1 className='gradient-heading'>MOVIES MOVIES MOVIES</h1>
         <p>Choose a genre:</p>
 
         <Select

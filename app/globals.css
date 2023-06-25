@@ -17,14 +17,20 @@ body {
   }
 }
 
-h1, p{
-  font-size: 5rem;
-  color: #eee;
+h1, p, .movie-card{
   text-align: center;
-  padding-top: 3rem;
+}
+
+.gradient-heading{
+  background-image: radial-gradient(ellipse 400px 120px, #04ff57, #181be3);
+  background-clip: text;
+  color: transparent;
+  padding: 3rem 0;
+  font-size: 5rem;
 }
 
 p{
+  color: #eee;
   font-size: 1.5rem;
   padding-bottom: 1.5rem;
 }
@@ -46,7 +52,6 @@ p{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
   max-width: 300px;
   padding: 2rem;
   margin: 2rem;
@@ -70,7 +75,7 @@ p{
 }
 
 .back-to-top {
-  background-color: #affc41;
+  background-color: #04ff57;
   border-radius: 100%;
   padding: 1rem;
   border: 0;
