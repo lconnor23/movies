@@ -91,7 +91,7 @@ const scrollToTop = () => {
                 className='movie-card'
                 key={movie.id}>
                 <h3 className='movie-title'>{movie.title}</h3>
-                <img 
+                <img
                     className="movie-img"
                     src={movie.posterURL} 
                     alt={`${movie.title} poster`}
