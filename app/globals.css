@@ -23,7 +23,7 @@ h1, p, .movie-card{
 }
 
 .gradient-heading{
-  background-image: radial-gradient(ellipse 400px 120px, #04ff57, #181be3);
+  background-image: radial-gradient(ellipse 400px 120px, #3eff15, #a117f2);
   background-clip: text;
   color: transparent;
   padding: 3rem 0;
@@ -76,7 +76,7 @@ p{
 }
 
 .back-to-top {
-  background-color: #04ff57;
+  background-color: #3eff15;
   border-radius: 100%;
   padding: 1rem;
   border: 0;

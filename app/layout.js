@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Movie App',
+  title: 'Movies Movies Movies',
   description: 'Movie app with fetched data from Sample API',
 }
 
