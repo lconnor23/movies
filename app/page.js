@@ -129,18 +129,18 @@ const clear = () =>{
          
           {/* only renders for working images */}
             {searchedMovies.map((movie, index) => (!movie.imageError &&
-             <Link href={`https://www.imdb.com/title/${movie.imdbId}`}>
               <section 
                 className='movie-card'
                 key={movie.id}>
+                <Link href={`https://www.imdb.com/title/${movie.imdbId}`}>
                 <h3 className='movie-title'>{movie.title}</h3>
                 <img
                     className="movie-img"
                     src={movie.posterURL} 
                     alt={`${movie.title} poster`}
                     onError={() => handleImageError(index)} />
+                </Link>
               </section>
-              </Link>
             ))}
            
         </div>}
@@ -148,19 +148,19 @@ const clear = () =>{
         {!searchInput &&
         <div className='movies-container'>
           {/* only renders for working images */}
-            {movies.map((movie, index) => (!movie.imageError &&
-             <Link href={`https://www.imdb.com/title/${movie.imdbId}`} target="_blank">
+            {movies.map((movie, index) => (!movie.imageError &&          
               <section 
                 className='movie-card'
                 key={movie.id}>
+                <Link href={`https://www.imdb.com/title/${movie.imdbId}`} target="_blank">
                 <h4 className='movie-title'>{movie.title}</h4>
                 <img
                     className="movie-img"
                     src={movie.posterURL} 
                     alt={`${movie.title} poster`}
                     onError={() => handleImageError(index)} />
-              </section>
-              </Link>
+                </Link>
+              </section>            
             ))}
         </div>}
           
