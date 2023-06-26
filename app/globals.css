@@ -30,6 +30,12 @@ h1, .subheading, .movie-card{
   font-size: 5rem;
 }
 
+@media(max-width: 600px) {
+  .gradient-heading{
+    font-size: 4rem;
+  }
+}
+
 .subheading{
   color: #eee;
   font-size: 1.5rem;

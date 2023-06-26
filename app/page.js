@@ -147,7 +147,7 @@ const clear = () =>{
               <section 
                 className='movie-card'
                 key={movie.id}>
-                <h3 className='movie-title'>{movie.title}</h3>
+                <h4 className='movie-title'>{movie.title}</h4>
                 <img
                     className="movie-img"
                     src={movie.posterURL} 
