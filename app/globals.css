@@ -26,7 +26,7 @@ h1, p, .movie-card{
   background-image: radial-gradient(ellipse 400px 120px, #3eff15, #a117f2);
   background-clip: text;
   color: transparent;
-  padding: 3rem 0;
+  padding: 3rem 2rem;
   font-size: 5rem;
 }
 
