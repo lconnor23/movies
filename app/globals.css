@@ -18,7 +18,7 @@ body {
   }
 }
 
-h1, p, .movie-card{
+h1, .subheading, .movie-card{
   text-align: center;
 }
 
@@ -26,32 +26,72 @@ h1, p, .movie-card{
   background-image: radial-gradient(ellipse 400px 120px, #3eff15, #a117f2);
   background-clip: text;
   color: transparent;
-  padding: 3rem 2rem;
+  padding: 3rem 2rem 1.5rem 3rem;
   font-size: 5rem;
 }
 
-p{
+.subheading{
   color: #eee;
   font-size: 1.5rem;
-  padding-bottom: 1.5rem;
+  font-weight:400;
+  padding-bottom: 1rem;
 }
 
-.dropdown-menu{
+.dropdown-menu {
   width: 15rem;
   margin: auto;
 }
 
-.movies-container {
+.dropdown-menu{
+  padding-bottom: 1.5rem;
+}
+
+.search, 
+.clear-icon,
+.movies-container,
+.movie-card
+{
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  padding-top: 3rem;
+}
+
+.search{
+  gap: 5px;
+}
+
+.search-bar, .clear{  
+  height: 2rem;
+  background: #eee;
+  border:none;
+  border-radius: 4px;
+}
+
+.search-bar{
+  padding: 2px 10px;
+  font-size: 1rem;
+  width: 13rem;
+}
+
+.clear{
+  width: 2rem;
+  font-size: 1.5rem;
+  background-color: #eee
+}
+.clear:hover{
+  background: #a117f2;
+}
+.clear-icon{
+  align-items: center;
+  margin: auto;
+}
+
+.movies-container {
+  flex-wrap: wrap;
+  padding-top: .5rem;
 }
 
 .movie-card {
-  display:flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   max-width: 300px;
   padding: 2rem;

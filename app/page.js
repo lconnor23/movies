@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react"
 import Select from "react-select"
 import { BsChevronUp } from 'react-icons/bs'
+import { MdOutlineClear } from 'react-icons/md'
 
 /* Select dropdown options of movie genres */
 const options = [
@@ -22,22 +23,26 @@ async function getMovies(genre){
 }
 
 export default function Home() {
-  /* State variables for fetching selected genre, handling data, and scroll button */
+  /* State variables for fetching selected genre, handling data, search, and scroll button */
   const [selectedOption, setSelectedOption] = useState()
   const [movies, setMovies] = useState([])
+  const [searchInput, setSearchInput] = useState('')
+  const [searchedMovies, setSearchedMovies] = useState([])
   const [scrollButton, setScrollButton] = useState(false)
  
-  /* Creates fetch request only when selected option changes*/
+  /* Creates fetch request only when selected option changes, clears search and results*/
   useEffect(() => {
     const fetchMovies = async () => {
       if (selectedOption) {
         const moviesData = await getMovies(selectedOption.value)
-        /* can add slice here to limit results, setMovies(moviesData.slice(0, 30)) */
         setMovies(moviesData)
+        setSearchInput('')
+        setSearchedMovies([])
       }
     }
     fetchMovies()
   }, [selectedOption])
+
 
 /* Handles broken images, on error adds property imageError:true to movie object */
   const handleImageError = (index) => {
@@ -71,10 +76,24 @@ const scrollToTop = () => {
   })
 }
 
+/* Returns movies that include searched term */
+const searchMovies = (e) =>{
+  setSearchInput(e.target.value)
+  const filteredMovies = movies.filter((movie) => movie.title.toLowerCase().includes(searchInput.toLowerCase()))
+  setSearchedMovies(filteredMovies)
+}
+
+/* Clears input and resets movies to all in genre */
+const clear = () =>{
+  setSearchInput('')
+  setSearchedMovies([])
+  getMovies()
+}
+
     return (
       <body>        
         <h1 className='gradient-heading'>MOVIES MOVIES MOVIES</h1>
-        <p>Choose a genre:</p>
+        <h2 className="subheading">Choose a genre:</h2>
 
         <Select
           className="dropdown-menu"
@@ -83,7 +102,45 @@ const scrollToTop = () => {
           options={options}
           maxMenuHeight={300}
         />
-    
+
+        {selectedOption && 
+        <div>
+          <h3 className="subheading">Search by title in {selectedOption.value}:</h3>
+          <div className="search">
+            <input
+              className="search-bar" 
+              type='text'
+              onChange={searchMovies}
+              value={searchInput}>
+            </input>
+            <button 
+              className="clear"
+              onClick={clear}>  
+              <MdOutlineClear
+                className="clear-icon"/> 
+            </button>
+          </div>
+        </div>}
+
+        
+        {searchMovies &&
+        <div className='movies-container'>
+          {/* only renders for working images */}
+            {searchedMovies.map((movie, index) => (!movie.imageError &&
+              <section 
+                className='movie-card'
+                key={movie.id}>
+                <h3 className='movie-title'>{movie.title}</h3>
+                <img
+                    className="movie-img"
+                    src={movie.posterURL} 
+                    alt={`${movie.title} poster`}
+                    onError={() => handleImageError(index)} />
+              </section>
+            ))}
+        </div>}
+
+        {!searchInput &&
         <div className='movies-container'>
           {/* only renders for working images */}
             {movies.map((movie, index) => (!movie.imageError &&
@@ -98,7 +155,7 @@ const scrollToTop = () => {
                     onError={() => handleImageError(index)} />
               </section>
             ))}
-        </div>
+        </div>}
           
           { scrollButton && <BsChevronUp
             className='back-to-top'
