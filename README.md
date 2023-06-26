@@ -1,22 +1,16 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MOVIES MOVIES MOVIES
 
-## Getting Started
+Live site [here](https://moviesmoviesmovies.netlify.app/)
 
-First, run the development server:
+I found a free movie api and wanted to create a quick site. Since the api endpoints were different genres, I created a dropdown menu with those values. On selection, the movies from that genre display to the page. I also added a search feature to search the movies by title.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Built With
+React
+Next
+CSS
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Optimizations
+The movie data in this api was limited to title, image, and imdbId. I could add a link to the imdb page for more information.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-
-
+## Lessons Learned
+I learned how do use a menu of dropdown items to pass in the selected value as the endpoint to my api fetch request. I also created a gradient title and a scroll to top button. It took some troubleshooting with the search bar to get everything working properly such as only the searched movies displaying and resetting the input.
