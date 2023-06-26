@@ -98,12 +98,12 @@ const scrollToTop = () => {
                     onError={() => handleImageError(index)} />
               </section>
             ))}
+        </div>
           
           { scrollButton && <BsChevronUp
             className='back-to-top'
             onClick={scrollToTop}
             />}
-        </div>
     </body>
   )
 }
