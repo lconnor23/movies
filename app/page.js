@@ -132,7 +132,8 @@ const clear = () =>{
               <section 
                 className='movie-card'
                 key={movie.id}>
-                <Link href={`https://www.imdb.com/title/${movie.imdbId}`}>
+                <Link href={`https://www.imdb.com/title/${movie.imdbId}`}
+                target="_blank">
                 <h3 className='movie-title'>{movie.title}</h3>
                 <img
                     className="movie-img"
