@@ -12,5 +12,7 @@ CSS
 ## Optimizations
 The movie data in this api was limited to title, image, and imdbId. I could add a link to the imdb page for more information.
 
+UPDATE: Each movie now links to its own IMDB page.
+
 ## Lessons Learned
 I learned how do use a menu of dropdown items to pass in the selected value as the endpoint to my api fetch request. I also created a gradient title and a scroll to top button. It took some troubleshooting with the search bar to get everything working properly such as only the searched movies displaying and resetting the input.
