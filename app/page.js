@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import Select from "react-select"
 import { BsChevronUp } from 'react-icons/bs'
 import { MdOutlineClear } from 'react-icons/md'
+import Link from "next/link"
 
 /* Select dropdown options of movie genres */
 const options = [
@@ -125,8 +126,10 @@ const clear = () =>{
         
         {searchMovies &&
         <div className='movies-container'>
+         
           {/* only renders for working images */}
             {searchedMovies.map((movie, index) => (!movie.imageError &&
+             <Link href={`https://www.imdb.com/title/${movie.imdbId}`}>
               <section 
                 className='movie-card'
                 key={movie.id}>
@@ -137,13 +140,16 @@ const clear = () =>{
                     alt={`${movie.title} poster`}
                     onError={() => handleImageError(index)} />
               </section>
+              </Link>
             ))}
+           
         </div>}
 
         {!searchInput &&
         <div className='movies-container'>
           {/* only renders for working images */}
             {movies.map((movie, index) => (!movie.imageError &&
+             <Link href={`https://www.imdb.com/title/${movie.imdbId}`} target="_blank">
               <section 
                 className='movie-card'
                 key={movie.id}>
@@ -154,6 +160,7 @@ const clear = () =>{
                     alt={`${movie.title} poster`}
                     onError={() => handleImageError(index)} />
               </section>
+              </Link>
             ))}
         </div>}
           
